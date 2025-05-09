@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Números Aleatorios</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        input, button {
+            margin: 10px;
+            padding: 10px;
+            width: 90%;
+        }
+        .result {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .number-box {
+            padding: 10px;
+            background: #f0f0f0;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Generar números aleatorios</h2>
+        <label>Desde: <input type="number" id="min" value="1"></label>
+        <label>Hasta: <input type="number" id="max" value="10"></label>
+        <label>Número de resultados: <input type="number" id="cantidad" value="5"></label>
+        <label><input type="checkbox" id="repetidos" checked> Permitir números repetidos</label>
+        <button onclick="generarNumeros()">Generar números</button>
+        <div class="result" id="resultado"></div>
+    </div>
+    
+    <script>
+        function generarNumeros() {
+            const min = parseInt(document.getElementById('min').value);
+            const max = parseInt(document.getElementById('max').value);
+            const cantidad = parseInt(document.getElementById('cantidad').value);
+            const permitirRepetidos = document.getElementById('repetidos').checked;
+            const resultado = document.getElementById('resultado');
+            resultado.innerHTML = '';
+            let numeros = [];
+            
+            while (numeros.length < cantidad) {
+                let numero = Math.floor(Math.random() * (max - min + 1)) + min;
+                if (permitirRepetidos || !numeros.includes(numero)) {
+                    numeros.push(numero);
+                }
+            }
+            
+            numeros.forEach(num => {
+                let div = document.createElement('div');
+                div.className = 'number-box';
+                div.textContent = num;
+                resultado.appendChild(div);
+            });
+        }
+    </script>
+</body>
+</html>
